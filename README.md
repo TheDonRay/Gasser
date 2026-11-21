@@ -1,6 +1,6 @@
 # ⛽ Gasser
 
-Tankwise is a weekly gas tracker that logs every fill-up by day and fuel grade, along with the gallons pumped and the money spent. Live statistics, a daily spending breakdown and an AI "pit stop" powered by OpenAI help you see where your gas money goes and how to spend less of it.
+Gasser is a weekly gas tracker that logs every fill-up by day and fuel grade, along with the gallons pumped and the money spent. Live statistics, a daily spending breakdown and an AI "pit stop" powered by OpenAI help you see where your gas money goes and how to spend less of it.
 
 ---
 
@@ -19,9 +19,9 @@ Tankwise is a weekly gas tracker that logs every fill-up by day and fuel grade, 
 | Layer | Tools |
 |---|---|
 | Frontend | React 18, Vite 5, plain CSS (Poppins font) |
-| Backend | Node.js, Express, OpenAI API |
+| Backend | Node.js, Express, ClaudeAI API |
 
-The OpenAI key lives only on the backend. The browser never sees it: the frontend calls `/api/insights`, and Vite forwards that request to the Express server.
+The ClaudeAI key lives only on the backend. The browser never sees it: the frontend calls `/api/insights`, and Vite forwards that request to the Express server.
 
 ## Project structure
 
