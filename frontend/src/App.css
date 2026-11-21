@@ -441,18 +441,30 @@ h1, h2 { margin: 0; font-weight: 500; }
 
 /* ---------- Car ---------- */
 .car .panel-head { margin-bottom: 12px; }
-/* The frame hugs the photo: no cropping and no empty bars around it */
+.car-actions { display: flex; gap: 6px; margin-left: auto; }
+.car-actions .chip:hover:not(:disabled) { color: var(--text); }
+.car-actions .chip:disabled { opacity: 0.5; cursor: wait; }
+.chip-danger:hover { color: var(--danger) !important; }
+
+/* The frame hugs the photo: no cropping, any aspect ratio, and the height
+   tracks the viewport so tall phone shots never take over the screen */
 .car-photo {
   margin: 0;
   display: flex;
   justify-content: center;
+  border-radius: var(--radius-lg);
+  transition: outline-color 0.15s;
+  outline: 2px dashed transparent;
+  outline-offset: 3px;
 }
+.car-photo.dragging { outline-color: var(--ink); }
 .car-photo img {
   display: block;
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: 320px;
+  max-height: clamp(180px, 38vh, 340px);
+  object-fit: contain;
   border-radius: var(--radius-lg);
 }
 .car-photo figcaption {
@@ -464,16 +476,36 @@ h1, h2 { margin: 0; font-weight: 500; }
   border-radius: 999px;
 }
 .car-empty {
+  width: 100%;
   aspect-ratio: 16 / 9;
-  display: grid; place-items: center;
+  max-height: clamp(160px, 34vh, 300px);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px;
   padding: 16px;
   text-align: center;
+  font: inherit;
+  font-size: 0.85rem;
+  background: transparent;
   border: 1.5px dashed var(--border);
   border-radius: var(--radius-lg);
   color: var(--muted);
-  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
 }
-.car-empty code { font-size: 0.8rem; color: var(--text); }
+.car-empty:hover:not(:disabled), .car-empty.dragging { border-color: var(--ink); color: var(--text); }
+.car-empty:disabled { cursor: wait; }
+.car-empty b { display: block; font-weight: 500; color: var(--text); }
+.car-empty-hint { display: block; font-size: 0.75rem; margin-top: 2px; }
+.car-empty-icon {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--text);
+  font-size: 1.1rem;
+}
+.car-error { margin-top: 8px; }
 .car-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
 .car-stats > div {
   background: var(--card);
@@ -551,7 +583,8 @@ h1, h2 { margin: 0; font-weight: 500; }
 
   /* Stack gallons over dollars so longer numbers like 22.75 fit */
   .day-inputs { grid-template-columns: minmax(0, 1fr); }
-  .car-photo img { max-height: 260px; }
+  .car-photo img { max-height: clamp(160px, 32vh, 260px); }
+  .car-empty { aspect-ratio: 4 / 3; }
 
   /* 16px text in form fields stops iOS Safari from zooming in on focus */
   .mini-field input, .ask input { font-size: 16px; }
@@ -572,4 +605,5 @@ h1, h2 { margin: 0; font-weight: 500; }
   .day-tile { width: 32px; height: 32px; }
   .mini-field input { padding: 9px 0; }
   .car-dots button { width: 12px; height: 12px; }
+  .car-actions .chip { min-height: 36px; }
 }
