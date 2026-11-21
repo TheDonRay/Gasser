@@ -1,4 +1,5 @@
 import express from 'express'; 
+import cors from 'cors'; 
 const app = express(); 
 
 
@@ -7,6 +8,11 @@ import insights from './routes/insights.route.js';
 
 
 //set up express middleware here as such 
+// Let the hosted frontend call this API from another domain.
+// Set CORS_ORIGIN on Railway to your frontend URL(s), comma-separated, to lock it down.
+app.use(cors({ 
+    origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim()) : '*', 
+})); 
 app.use(express.json()); 
 
 //health check 
