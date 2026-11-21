@@ -2,7 +2,8 @@ import express from 'express';
 const app = express(); 
 
 
-// import routes here 
+// import routes here
+import insights from './routes/insights.route.js';
 
 
 //set up express middleware here as such 
@@ -16,7 +17,9 @@ app.get('/', (req, res) => {
     }); 
 }); 
 
-// Mount routes here  
+// Mount routes here
+// POST /api/insights (the frontend's Vite proxy forwards /api/* here)
+app.use('/api', insights);
 
 
 export default app; 
