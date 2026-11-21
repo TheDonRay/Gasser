@@ -10,7 +10,10 @@ import { DAYS, summarize } from './stats.js'
 
 const STORAGE_KEY = 'pumplog-v1'
 const THEME_KEY = 'pumplog-theme'
-const BACKEND_DOWN = 'AI insights unavailable. Is the backend running on port 9989?'
+// In production the frontend calls the Railway backend directly (set in .env.production).
+// Locally this is empty, so requests go to /api and the Vite proxy forwards them.
+const API_BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '')
+const BACKEND_DOWN = 'AI insights are unavailable right now. The server may be waking up, so try again in a moment.'
 
 const emptyWeek = () => DAYS.map((day) => ({ day, gallons: 0, spent: 0, fillUps: 0 }))
 
@@ -118,7 +121,7 @@ const App = () => {
     setAiStatus('loading')
     setAiError('')
     try {
-      const res = await fetch('/api/insights', {
+      const res = await fetch(`${API_BASE}/api/insights`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
