@@ -440,15 +440,20 @@ h1, h2 { margin: 0; font-weight: 500; }
 
 /* ---------- Car ---------- */
 .car .panel-head { margin-bottom: 12px; }
+/* The frame hugs the photo: no cropping and no empty bars around it */
 .car-photo {
   margin: 0;
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: var(--card);
-  aspect-ratio: 16 / 9;
+  display: flex;
+  justify-content: center;
 }
-.car-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.car-photo img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: var(--radius-lg);
+}
 .car-photo figcaption {
   position: absolute; left: 10px; bottom: 10px;
   background: var(--surface);

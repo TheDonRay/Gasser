@@ -27,9 +27,8 @@ const CarCard = ({ summary }) => {
 
   return (
     <section className="panel car" id="car">
-      <div className="panel-head">
-        <h2>My ride</h2>
-        {PHOTOS.length > 1 && (
+      {PHOTOS.length > 1 && (
+        <div className="panel-head">
           <div className="car-dots" role="group" aria-label="Car photos">
             {PHOTOS.map((p, i) => (
               <button
@@ -42,13 +41,12 @@ const CarCard = ({ summary }) => {
               />
             ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {photo ? (
         <figure className="car-photo">
-          <img src={photo.url} alt={photo.name} />
-          <figcaption>{photo.name}</figcaption>
+          <img src={photo.url} alt={`My car: ${photo.name}`} />
         </figure>
       ) : (
         <div className="car-empty">
