@@ -12,7 +12,7 @@ const Sidebar = ({ dark, toggleTheme }) => (
   <aside className="sidebar">
     <div className="brand">
       <div className="brand-mark"><Icon name="fuel" size={20} /></div>
-      <span>Tank<b>wise</b></span>
+      <span>Gas<b>ser</b></span>
     </div>
 
     <nav className="nav">

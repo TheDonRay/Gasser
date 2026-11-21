@@ -10,7 +10,7 @@ import { DAYS, summarize } from './stats.js'
 
 const STORAGE_KEY = 'pumplog-v1'
 const THEME_KEY = 'pumplog-theme'
-const BACKEND_DOWN = 'AI insights unavailable. Is the backend running on port 3001?'
+const BACKEND_DOWN = 'AI insights unavailable. Is the backend running on port 9989?'
 
 const emptyWeek = () => DAYS.map((day) => ({ day, gallons: 0, spent: 0, fillUps: 0 }))
 
