@@ -11,7 +11,7 @@ Gasser is a weekly gas tracker that logs every fill-up by day and fuel grade, al
 - **Live statistics.** Total fill-ups, a count for each grade, total gallons, total spent, average $/gal, your most expensive day and your premium share.
 - **Daily breakdown.** A list of the days you've logged, sortable by week order, most spent or most gallons.
 - **AI pit stop.** Summarize your week, get saving tips, or ask your own question about your gas spending.
-- **My ride.** Shows a photo of your car next to this week's gallons and fuel cost.
+- **My ride.** Upload a photo of your car (tap or drag and drop, up to 5 photos). It's resized in the browser, saved in `localStorage`, and shown next to this week's gallons and fuel cost.
 - **Dark mode**, a responsive layout, and data saved in the browser (`localStorage`) so a page refresh doesn't wipe your week.
 
 ## Tech stack
@@ -29,7 +29,7 @@ The ClaudeAI key lives only on the backend. The browser never sees it: the front
 GasTrackerAnalzyer/
 ├── backend/                 Express server (OpenAI proxy)
 └── frontend/
-    ├── car-photos/          Put your car's photo here
+    ├── car-photos/          Optional default photos bundled at build time
     ├── index.html
     ├── vite.config.js       Proxies /api to localhost:3001
     └── src/
@@ -79,7 +79,9 @@ Start the server on port **3001**, then use the AI pit stop in the app. Everythi
 
 ### 3. Your car photo (optional)
 
-Put a `.jpg`, `.png` or `.webp` file in `frontend/car-photos/` and restart `npm run dev`.
+Click **Upload a photo of your car** in the My ride card, or drag an image onto it. Photos are saved in your browser, so they stay after a refresh.
+
+To ship a default photo with the site, put a `.jpg`, `.png` or `.webp` file in `frontend/car-photos/` and rebuild. Uploaded photos show before bundled ones.
 
 ## API
 
