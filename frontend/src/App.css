@@ -184,9 +184,10 @@ h1, h2 { margin: 0; font-weight: 500; }
 .title-lg { font-size: 1.25rem !important; }
 
 /* ---------- Week grid ---------- */
+/* Cards are never narrower than 140px: 4 across on wide panels, 2 on phones */
 .week-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 10px;
 }
 
@@ -266,7 +267,7 @@ h1, h2 { margin: 0; font-weight: 500; }
   display: flex; align-items: center; justify-content: center; gap: 8px;
 }
 .btn-regular::before, .btn-midgrade::before, .btn-premium::before {
-  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  content: ''; width: 8px; height: 8px; border-radius: 50%; flex: none;
 }
 .btn-regular::before  { background: var(--regular); }
 .btn-midgrade::before { background: var(--midgrade); }
@@ -491,29 +492,84 @@ h1, h2 { margin: 0; font-weight: 500; }
 .car-dots button.active { background: var(--ink); }
 
 /* ---------- Responsive ---------- */
+/* Medium screens (small laptops, tablets): stack the rows,
+   but keep the car and AI cards side by side so nothing is wasted */
 @media (max-width: 1100px) {
   .row-top, .row-bottom { grid-template-columns: minmax(0, 1fr); }
+  .side-stack {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
 }
 
-@media (max-width: 760px) {
+/* Tablets and below: the sidebar becomes a top bar with scrollable section links */
+@media (max-width: 1024px) {
   .shell { grid-template-columns: minmax(0, 1fr); }
   .sidebar {
-    position: static;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     height: auto;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    padding: 12px 16px;
+    gap: 10px 16px;
+    padding: 12px 20px 0;
+    background: var(--surface);
     border-right: none;
     border-bottom: 1px solid var(--border);
   }
-  .nav { display: none; }
-  .theme-toggle { margin: 0 0 0 auto; padding: 6px; }
-  .main { padding: 20px 16px 32px; }
-  .headlines { gap: 24px; flex-wrap: wrap; }
-  .week-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .theme-toggle { order: 2; margin: 0 0 0 auto; padding: 6px; }
+  .nav {
+    order: 3;
+    flex: 1 0 100%;
+    flex-direction: row;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-item { white-space: nowrap; padding: 8px 12px; flex: none; }
+  .panel { scroll-margin-top: 130px; }
+  .main { padding: 24px 20px 36px; }
 }
 
-@media (max-width: 420px) {
-  .grade-buttons { grid-template-columns: minmax(0, 1fr); }
+/* Phones */
+@media (max-width: 640px) {
+  .side-stack { display: flex; }
+  .sidebar { padding: 10px 16px 0; }
+  .theme-label { display: none; }
+  .main { padding: 18px 16px 28px; gap: 14px; }
+  .panel { padding: 14px; border-radius: 18px; }
+  .page-head h1 { font-size: 1.3rem; }
+  .headlines { gap: 20px 28px; flex-wrap: wrap; }
+  .headline-value { font-size: 1.15rem; }
+  .title-lg { font-size: 1.1rem !important; }
+  .ai-actions { width: 100%; }
+  .ai-actions .pill-outline { flex: 1 1 100%; justify-content: center; white-space: nowrap; padding: 10px 14px; }
+
+  /* Stack gallons over dollars so longer numbers like 22.75 fit */
+  .day-inputs { grid-template-columns: minmax(0, 1fr); }
+  .car-photo img { max-height: 260px; }
+
+  /* 16px text in form fields stops iOS Safari from zooming in on focus */
+  .mini-field input, .ask input { font-size: 16px; }
+}
+
+/* Small phones (iPhone SE, small Androids) */
+@media (max-width: 380px) {
+  .grade-buttons { gap: 6px; }
+  .grade-buttons .btn { padding: 12px 6px; font-size: 0.85rem; }
   .segmented button { font-size: 0.72rem; }
+  .breakdown-item { gap: 10px; padding: 12px; }
+}
+
+/* Touch screens: make small controls easier to hit */
+@media (pointer: coarse) {
+  .chip { min-height: 36px; padding: 6px 14px; }
+  .segmented button { min-height: 40px; }
+  .day-tile { width: 32px; height: 32px; }
+  .mini-field input { padding: 9px 0; }
+  .car-dots button { width: 12px; height: 12px; }
 }

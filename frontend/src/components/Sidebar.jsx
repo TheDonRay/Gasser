@@ -30,9 +30,10 @@ const Sidebar = ({ dark, toggleTheme }) => (
       onClick={toggleTheme}
       role="switch"
       aria-checked={dark}
+      aria-label="Dark mode"
     >
       <Icon name="moon" />
-      Dark mode
+      <span className="theme-label">Dark mode</span>
       <span className={`switch${dark ? ' on' : ''}`} />
     </button>
   </aside>
